@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dikebras — Barbearia, Bar & Sinuca</title>
+  <meta name="description" content="Modelo de site para a Dikebras Barbearia | Bar & Sinuca. Proposta desenvolvida por Scroll House." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Permanent+Marker&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+        "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js",
+        "gsap/ScrollTrigger": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="loader" id="loader">
+    <span class="loader__word">DIKEBRAS</span>
+    <span class="loader__bar"><i id="loaderBar"></i></span>
+  </div>
+
+  <div class="bg" aria-hidden="true"></div>
+  <canvas id="webgl" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a href="#topo" class="nav__logo">DIKEBRAS</a>
+    <nav class="nav__links">
+      <a href="#cardapio">Cardápio</a>
+      <a href="#mensal">Plano mensal</a>
+      <a href="#sinuca">Bar & Sinuca</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a href="https://wa.me/5511989480221" target="_blank" rel="noopener" class="btn btn--small">Agendar</a>
+  </header>
+
+  <main class="content">
+    <div class="zone-tools">
+      <!-- HERO -->
+      <section class="hero" id="topo">
+        <p class="hero__kicker reveal">Barbearia · Bar &amp; Sinuca</p>
+        <h1 class="hero__title"><span>DIKE</span><span>BRAS</span></h1>
+        <p class="tape tape--hero reveal">Inimigo nº 1 dos góticos</p>
+        <div class="hero__foot">
+          <ul class="facts reveal">
+            <li><strong>4 anos</strong> de casa</li>
+            <li><strong>+50</strong> assinantes</li>
+            <li><strong>Sinuca</strong> e gelada</li>
+          </ul>
+          <div class="hero__cta reveal">
+            <a href="https://wa.me/5511989480221" target="_blank" rel="noopener" class="btn">Agendar no WhatsApp</a>
+            <a href="#cardapio" class="btn btn--ghost">Ver cardápio</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- CARDÁPIO -->
+      <section class="cardapio panel" id="cardapio">
+        <div class="panel__text">
+          <p class="tape">Cardápio de serviços</p>
+          <h2 class="big">Escolhe aí<br />que a gente<br /><span class="marker">resolve.</span></h2>
+          <div class="tabs" role="tablist" aria-label="Categorias de serviço">
+            <button role="tab" id="tab-cortes" aria-selected="true" aria-controls="p-cortes">Cortes</button>
+            <button role="tab" id="tab-barba" aria-selected="false" aria-controls="p-barba">Barba</button>
+            <button role="tab" id="tab-combos" aria-selected="false" aria-controls="p-combos">Combos</button>
+            <button role="tab" id="tab-quimicas" aria-selected="false" aria-controls="p-quimicas">Químicas</button>
+            <button role="tab" id="tab-trat" aria-selected="false" aria-controls="p-trat">Tratamentos</button>
+          </div>
+          <ul class="prices" id="p-cortes" role="tabpanel" aria-labelledby="tab-cortes">
+            <li><span>Corte</span><b>R$ 40</b></li>
+            <li><span>Degradê navalhado</span><b>R$ 45</b></li>
+            <li><span>Máquina 1 pente</span><b>R$ 25</b></li>
+            <li><span>Raspagem</span><b>R$ 25</b></li>
+            <li><span>Somente na tesoura</span><b>R$ 50</b></li>
+          </ul>
+          <ul class="prices" id="p-barba" role="tabpanel" aria-labelledby="tab-barba" hidden>
+            <li><span>Barba</span><b>R$ 35/40</b></li>
+            <li><span>Barboterapia</span><b>R$ 70</b></li>
+            <li><span>Sobrancelha</span><b>R$ 20</b></li>
+            <li><span>Pezinho</span><b>R$ 20</b></li>
+            <li><span>Depilação (nariz ou orelha)</span><b>R$ 20</b></li>
+          </ul>
+          <ul class="prices" id="p-combos" role="tabpanel" aria-labelledby="tab-combos" hidden>
+            <li><span>Corte e barba</span><b>R$ 70/75</b></li>
+            <li><span>Corte e barboterapia</span><b>R$ 90</b></li>
+            <li><span>Corte e sobrancelha</span><b>R$ 55</b></li>
+            <li><span>Barba e pezinho</span><b>R$ 45</b></li>
+            <li><span>Barba e sobrancelha</span><b>R$ 50</b></li>
+          </ul>
+          <ul class="prices" id="p-quimicas" role="tabpanel" aria-labelledby="tab-quimicas" hidden>
+            <li><span>Tintura</span><b>R$ 35</b></li>
+            <li><span>Luzes</span><b>R$ 90</b></li>
+            <li><span>Platinado</span><b>R$ 120</b></li>
+            <li><span>Alisamento</span><b>R$ 30</b></li>
+            <li><span>Progressiva</span><b>R$ 80</b></li>
+          </ul>
+          <ul class="prices" id="p-trat" role="tabpanel" aria-labelledby="tab-trat" hidden>
+            <li><span>Esfoliação</span><b>R$ 20</b></li>
+            <li><span>Argiloterapia</span><b>R$ 35</b></li>
+            <li><span>Máscara de cravos</span><b>R$ 35</b></li>
+            <li><span>Hidratação</span><b>R$ 30</b></li>
+            <li><span>Matização</span><b>R$ 30</b></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- PLANO MENSAL -->
+      <section class="mensal panel panel--right" id="mensal">
+        <div class="panel__text">
+          <p class="tape">Plano mensal</p>
+          <h2 class="big">Cabelo na régua<br />o mês <span class="marker">inteiro.</span></h2>
+          <p class="lead">Corte ou barba, você escolhe como usar. Já são mais de 50 assinantes.</p>
+          <div class="plans">
+            <div class="plan"><span class="plan__qty">4</span><span class="plan__lbl">serviços</span><b>R$ 120</b></div>
+            <div class="plan"><span class="plan__qty">6</span><span class="plan__lbl">serviços</span><b>R$ 165</b></div>
+            <div class="plan"><span class="plan__qty">8</span><span class="plan__lbl">serviços</span><b>R$ 210</b></div>
+            <div class="plan plan--hot"><span class="plan__qty">∞</span><span class="plan__lbl">ilimitado</span><b>R$ 325</b></div>
+          </div>
+          <p class="note">Valores promocionais para pagamento em Pix ou dinheiro.</p>
+        </div>
+      </section>
+
+      <!-- EQUIPE -->
+      <section class="equipe panel" id="equipe">
+        <div class="panel__text">
+          <p class="tape">A equipe</p>
+          <h2 class="big">Quem tá<br />na <span class="marker">cadeira.</span></h2>
+          <div class="crew">
+            <div class="barber"><span>N</span><b>Nando</b></div>
+            <div class="barber"><span>P</span><b>Pedrão</b></div>
+            <div class="barber"><span>R</span><b>Rai</b></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- SINUCA (cena fixa enquanto rola) -->
+    <section class="sinuca stage" id="sinuca">
+      <div class="stage__inner">
+        <div class="stage__text">
+          <p class="tape">Bar &amp; Sinuca</p>
+          <h2 class="big">Cortou?<br />Agora é a sua<br /><span class="marker">vez na mesa.</span></h2>
+        </div>
+        <p class="stage__hint">Role para dar a tacada</p>
+      </div>
+    </section>
+
+    <!-- BAR / COPÃO -->
+    <section class="bar stage" id="bar">
+      <div class="stage__inner">
+        <div class="stage__text">
+          <p class="tape">Do balcão</p>
+          <h2 class="big">Copão<br /><span class="marker">trincando</span><br />de gelado.</h2>
+          <p class="lead">Dose no capricho, gelo até a boca e a geladeira sempre cheia. Pede no balcão enquanto espera a sua vez.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section class="contato" id="contato">
+      <h2 class="contato__title">Bora<br /><span class="marker">dar um tapa</span><br />no visual?</h2>
+      <div class="contato__grid">
+        <div class="card">
+          <p class="card__lbl">Endereço</p>
+          <p class="card__val">Rua Rego Barros, 226</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Rua+Rego+Barros+226" target="_blank" rel="noopener" class="link">Abrir no mapa →</a>
+        </div>
+        <div class="card">
+          <p class="card__lbl">WhatsApp</p>
+          <p class="card__val">(11) 98948-0221</p>
+          <a href="https://wa.me/5511989480221" target="_blank" rel="noopener" class="link">Chamar agora →</a>
+        </div>
+        <div class="card">
+          <p class="card__lbl">Instagram</p>
+          <p class="card__val">@dikebras_</p>
+          <a href="https://www.instagram.com/dikebras_/" target="_blank" rel="noopener" class="link">Seguir →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p><strong>Modelo de proposta.</strong> Site não oficial, criado pela <a href="https://github.com/gabrieljuliattip-arch/scroll-house" target="_blank" rel="noopener">Scroll House</a> para apresentação à Dikebras.</p>
+  </footer>
+
+  <div class="proposal-tag">Proposta · Scroll House</div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
