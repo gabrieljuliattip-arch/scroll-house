@@ -31,3 +31,19 @@ js/env.js       estúdio de luz para os reflexos
 
 ## Rodar e publicar
 Live Server no `index.html` (ou `npx serve .`). Na Vercel: Framework **Other**, Root Directory **`dikebras`**.
+
+## Agenda online
+Páginas sem animação, ligadas a um banco **Supabase** (projeto `dikebras-agenda`, separado de outros projetos):
+
+| Página | O que faz |
+|---|---|
+| `agendar.html` | Cliente escolhe barbeiro → serviço → dia → horário. Só aparecem horários livres. |
+| `conta.html` | Cadastro com foto, login, troca de senha, próximos horários e cancelamento (até 1h antes). |
+| `painel.html` | Equipe vê a agenda do dia com foto do cliente, marca concluído/faltou/cancela e bloqueia horários. Atualiza sozinho. |
+
+Regras no banco:
+- Terça a sábado, 10h às 19h; último início 18h30 e o serviço precisa terminar até 19h.
+- Dois clientes nunca pegam o mesmo horário (restrição no banco, não só na tela).
+- Máximo de 3 horários futuros por cliente.
+- Fotos privadas: só o próprio cliente e a equipe veem.
+- Papéis: `client`, `barber` (vê a própria cadeira) e `owner` (vê todas). Barbeiro vira barbeiro quando se cadastra com o e-mail registrado em `barbers.email`; dono pelo e-mail em `owner_emails`.
