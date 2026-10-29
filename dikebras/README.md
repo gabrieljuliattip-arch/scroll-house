@@ -10,7 +10,13 @@ Três animações 3D guiadas pelo scroll:
 Conteúdo (preços, planos, equipe, endereço) tirado do Instagram @dikebras_.
 
 ## Tecnologias
-HTML, CSS e JavaScript puro · [Three.js](https://threejs.org/) · [GSAP](https://gsap.com/)
+HTML, CSS e JavaScript puro · [Three.js](https://threejs.org/) · [GSAP](https://gsap.com/) · [Lenis](https://lenis.darkroom.engineering/) (rolagem suave)
+
+## Realismo
+- **Estúdio de luz virtual** (`js/env.js`): softboxes e faixas em degradê viram o mapa de reflexo do cromado.
+- **Peças arredondadas**: contornos 2D extrudados com chanfro e normais suaves; lâminas afinam até o fio.
+- **Sinuca**: feltro com textura e relevo, madeira envernizada, luminária com sombra suave, câmera lenta logo após a tacada.
+- **Copão**: efeito fresnel (bordas mais opacas e brilhantes) no plástico, gelo e gotas; redemoinho no líquido.
 
 ## Estrutura
 ```
@@ -20,6 +26,7 @@ main.js         cena, câmera e ligação com o scroll
 js/tools.js     tesoura e navalha
 js/pool.js      mesa, bolas, taco e simulação da tacada
 js/drink.js     copão, líquido, gelo e condensação
+js/env.js       estúdio de luz para os reflexos
 ```
 
 ## Rodar e publicar

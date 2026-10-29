@@ -4,9 +4,10 @@
    A posição de cada objeto vem da posição das seções na tela.
    ========================================================== */
 import * as THREE from 'three';
-import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
+import { createStudioEnv } from './js/env.js';
 import { createTools } from './js/tools.js';
 import { createPool } from './js/pool.js';
 import { createDrink } from './js/drink.js';
@@ -21,34 +22,36 @@ const ease = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
 /* ---------- Renderer ---------- */
 const canvas = document.querySelector('#webgl');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile() ? 1.5 : 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 const scene = new THREE.Scene();
-const pmrem = new THREE.PMREMGenerator(renderer);
-scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+scene.environment = createStudioEnv(renderer);
 
 const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.1, 100);
 camera.position.set(0, 0, 14);
 
-const key = new THREE.DirectionalLight(0xffffff, 2.4);
+const key = new THREE.DirectionalLight(0xffffff, 1.6);
 key.position.set(3, 7, 8);
 scene.add(key);
-const redRim = new THREE.PointLight(0xff2a2a, 55, 30);
+const redRim = new THREE.PointLight(0xff2a2a, 40, 30);
 redRim.position.set(-5, 2, -3);
 scene.add(redRim);
 const fill = new THREE.PointLight(0xffd2a0, 30, 30);
 fill.position.set(5, -3, 4);
 scene.add(fill);
-scene.add(new THREE.AmbientLight(0xffffff, 0.25));
+scene.add(new THREE.AmbientLight(0xffffff, 0.12));
 
 /* ---------- Objetos ---------- */
 const tools = createTools();
 const pool = createPool(renderer);
 const drink = createDrink();
-scene.add(tools.group, pool.group, drink.group);
+scene.add(tools.group, pool.group, drink.group, pool.lamp, pool.lampTarget);
 
 // metade da largura visível no plano z=0
 const halfW = () => Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z * camera.aspect;
@@ -77,10 +80,11 @@ function zone(el) {
 }
 
 /* ---------- Mouse ---------- */
+const mouseRaw = { x: 0, y: 0 };
 const mouse = { x: 0, y: 0 };
 window.addEventListener('pointermove', (e) => {
-  mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = (e.clientY / window.innerHeight) * 2 - 1;
+  mouseRaw.x = (e.clientX / window.innerWidth) * 2 - 1;
+  mouseRaw.y = (e.clientY / window.innerHeight) * 2 - 1;
 });
 
 /* ---------- Loop ---------- */
@@ -93,6 +97,8 @@ function tick() {
   const t = clock.elapsedTime;
   const k = 1 - Math.exp(-dt * 5);
   const vh = window.innerHeight;
+  mouse.x = lerp(mouse.x, mouseRaw.x, 1 - Math.exp(-dt * 3));
+  mouse.y = lerp(mouse.y, mouseRaw.y, 1 - Math.exp(-dt * 3));
 
   /* 1) Tesoura + navalha */
   let pose = TOOL_POSES[0]();
@@ -121,13 +127,20 @@ function tick() {
   /* 2) Sinuca */
   const zs = zone(sinucaEl);
   live.pool = lerp(live.pool, zs.stick, k * 1.4);
-  const poolScale = isMobile() ? 1.0 : Math.min(1.3, halfW() / 3.6);
-  pool.group.position.set(0, (isMobile() ? -1.3 : -1.15) + (1 - ease(zs.enter)) * -10 + ease(zs.exit) * 10, 0);
-  pool.group.rotation.set(0.95, 0, 0);
+  // câmera: começa mais de lado e vai ficando de cima, aproximando durante a tacada
+  const pp = live.pool;
+  const poolScale = (isMobile() ? 0.98 : Math.min(1.25, halfW() / 3.7)) * (1 + 0.12 * ease(clamp((pp - 0.25) / 0.6)));
+  pool.group.position.set(0, (isMobile() ? -1.3 : -1.2) + (1 - ease(zs.enter)) * -10 + ease(zs.exit) * 10, 0);
+  pool.group.rotation.set(lerp(0.72, 1.02, ease(pp)), isMobile() ? 0 : lerp(-0.14, 0.06, pp), 0);
   pool.table.rotation.y = isMobile() ? Math.PI / 2 : 0;
   pool.group.scale.setScalar(poolScale);
   pool.group.visible = zs.enter > 0 && zs.exit < 1;
-  pool.update(live.pool);
+  // na sinuca a luminária domina: as outras luzes baixam
+  const poolOn = pool.group.visible ? clamp(zs.enter * 1.4) * (1 - zs.exit) : 0;
+  pool.lamp.intensity = 190 * poolOn;
+  key.intensity = 1.6 * (1 - 0.85 * poolOn);
+  fill.intensity = 30 * (1 - 0.8 * poolOn);
+  pool.update(live.pool, t);
 
   /* 3) Copão */
   const zb = zone(barEl);
@@ -184,6 +197,24 @@ function setupScroll() {
   });
 }
 
+/* ---------- Rolagem suave (Lenis) ligada ao GSAP ---------- */
+let lenis = null;
+function setupSmoothScroll() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => lenis.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
+  document.querySelectorAll('a[href^="#"]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      lenis.scrollTo(target, { offset: 0, duration: 1.6 });
+    });
+  });
+}
+
 /* ---------- Início ---------- */
 async function init() {
   const bar = document.getElementById('loaderBar');
@@ -200,6 +231,7 @@ async function init() {
   await new Promise((r) => setTimeout(r, 400));
   document.getElementById('loader').classList.add('is-done');
   document.body.classList.remove('is-loading');
+  setupSmoothScroll();
   setupScroll();
 
   // Entrada: ferramentas sobem girando
