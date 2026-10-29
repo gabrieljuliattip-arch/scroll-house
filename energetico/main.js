@@ -279,8 +279,12 @@ function setFlavor(i) {
 
   // Gira a lata e troca o rótulo no meio do giro
   gsap.killTweensOf(can.rotation);
+  spinning = true;
+  // Sempre termina num múltiplo de 360°, com a logo de frente
+  const base = Math.round(can.rotation.y / TAU) * TAU;
   gsap.to(can.rotation, {
-    y: can.rotation.y + TAU * dir, duration: 1.1, ease: 'power3.inOut',
+    y: base + TAU * dir, duration: 1.1, ease: 'power3.inOut',
+    onComplete: () => { spinning = false; },
     onUpdate() {
       if (this.progress() > 0.35 && bodyMat.map !== textures[i]) { bodyMat.map = textures[i]; bodyMat.needsUpdate = true; }
     },
@@ -314,6 +318,7 @@ window.addEventListener('pointermove', (e) => {
 const clock = new THREE.Clock();
 const live = { x: 0, y: 0, z: 0, rx: 0, ry: 0, rz: 0, s: 1 };
 let introDone = false;
+let spinning = false;
 
 function tick() {
   const dt = Math.min(clock.getDelta(), 0.1);
@@ -324,6 +329,12 @@ function tick() {
     const k = 1 - Math.exp(-dt * 5.5); // suavização independente do FPS
     for (const key in live) live[key] += (currentTarget[key] - live[key]) * k;
     applyPose(live);
+  }
+
+  // Fora da troca de sabor, a lata volta a ficar com a logo de frente
+  if (!spinning) {
+    const front = Math.round(can.rotation.y / TAU) * TAU;
+    can.rotation.y += (front - can.rotation.y) * (1 - Math.exp(-dt * 4));
   }
 
   // Flutuação + inclinação pelo mouse
