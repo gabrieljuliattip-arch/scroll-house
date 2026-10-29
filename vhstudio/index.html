@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VH Studio Auto — Estética Automotiva</title>
+  <meta name="description" content="Modelo de site para a VH Studio Auto Estética Automotiva, Vila Formosa. Proposta desenvolvida por Scroll House." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+        "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js",
+        "gsap/ScrollTrigger": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js",
+        "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.mjs"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="loader" id="loader"><span class="loader__word">VH STUDIO<i>.</i></span><span class="loader__bar"><i id="loaderBar"></i></span></div>
+
+  <div class="bg" aria-hidden="true"></div>
+  <canvas id="webgl" aria-hidden="true"></canvas>
+
+  <header class="nav">
+    <a href="#topo" class="nav__logo">VH STUDIO<i> AUTO</i></a>
+    <nav class="nav__links">
+      <a href="#polimento">Polimento</a>
+      <a href="#vitrificacao">Vitrificação</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#contato">Agendar</a>
+    </nav>
+    <a href="#contato" class="btn btn--small">Agende agora</a>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="topo">
+      <div class="hero__text">
+        <p class="kicker reveal">Estética automotiva · Vila Formosa</p>
+        <h1 class="hero__title"><span>O brilho que</span><span>seu carro</span><span><em>merece.</em></span></h1>
+        <p class="lead reveal">Com a perfeição que você exige. Lavagem, higienização, polimento e vitrificação com hora marcada.</p>
+        <div class="hero__cta reveal">
+          <a href="#contato" class="btn">Agende agora</a>
+          <a href="#servicos" class="btn btn--ghost">Nossos serviços</a>
+        </div>
+      </div>
+      <div class="split-tag reveal" aria-hidden="true"><span>Antes</span><i></i><span>Depois</span></div>
+    </section>
+
+    <!-- POLIMENTO (fixo) -->
+    <section class="stage polimento" id="polimento">
+      <div class="stage__inner">
+        <div class="stage__text">
+          <p class="kicker">Polimento</p>
+          <h2 class="big">Tira as marcas.<br /><em>Devolve o brilho.</em></h2>
+          <ol class="process" id="process">
+            <li><b>Lavagem</b><span>sujeira pesada fora antes de encostar na pintura</span></li>
+            <li><b>Descontaminação</b><span>remove o que a lavagem não tira</span></li>
+            <li><b>Polimento</b><span>máquina roto-orbital, riscos finos e marcas de lavagem</span></li>
+            <li><b>Proteção</b><span>finalização para o brilho durar</span></li>
+          </ol>
+          <div class="gauge">
+            <div><small>Brilho</small><b class="mono" id="gaugeMicron">Fosco</b></div>
+            <div><small>Área polida</small><b class="mono" id="gaugePct">0%</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VITRIFICAÇÃO (fixo) -->
+    <section class="stage vitri" id="vitrificacao">
+      <div class="stage__inner">
+        <div class="stage__text">
+          <p class="kicker">Vitrificação</p>
+          <h2 class="big">A água bate<br />e <em>vai embora.</em></h2>
+          <p class="lead">Uma camada de proteção cerâmica sobre a pintura. A sujeira gruda menos, a lavagem fica mais rápida e o brilho dura muito mais.</p>
+          <dl class="specs">
+            <div><dt>Proteção</dt><dd class="mono">Cerâmica</dd></div>
+            <div><dt>Água</dt><dd class="mono">Escorre</dd></div>
+            <div><dt>Lavagem</dt><dd class="mono">+ rápida</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section class="servicos" id="servicos">
+      <div class="servicos__head">
+        <p class="kicker">Nossos serviços</p>
+        <h2 class="big">Cada carro<br /><em>no capricho.</em></h2>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <h3>Lavagem</h3>
+          <p>Lavagem completa por fora e por dentro, para o dia a dia.</p>
+          <ul><li>Externa</li><li>Interna</li></ul>
+          <a class="btn btn--ghost btn--small" href="#contato" data-svc="Lavagem">Agendar</a>
+        </article>
+        <article class="card">
+          <h3>Lavagem detalhada</h3>
+          <p>Detalhe por detalhe: rodas, caixas de roda, frisos, vidros e acabamentos.</p>
+          <ul><li>Rodas</li><li>Acabamentos</li></ul>
+          <a class="btn btn--ghost btn--small" href="#contato" data-svc="Lavagem detalhada">Agendar</a>
+        </article>
+        <article class="card">
+          <h3>Higienização</h3>
+          <p>Bancos, carpete, teto e painel limpos de verdade. Tira mancha e cheiro.</p>
+          <ul><li>Bancos</li><li>Carpete</li></ul>
+          <a class="btn btn--ghost btn--small" href="#contato" data-svc="Higienização">Agendar</a>
+        </article>
+        <article class="card card--hot">
+          <span class="badge">Antes e depois</span>
+          <h3>Polimento</h3>
+          <p>Remove riscos finos e marcas, e a pintura volta a ter reflexo.</p>
+          <ul><li>Correção</li><li>Brilho</li></ul>
+          <a class="btn btn--small" href="#contato" data-svc="Polimento">Agendar</a>
+        </article>
+        <article class="card">
+          <h3>Vitrificação</h3>
+          <p>Proteção cerâmica sobre a pintura: brilho que dura e lavagem mais fácil.</p>
+          <ul><li>Proteção</li><li>Hidrofobia</li></ul>
+          <a class="btn btn--ghost btn--small" href="#contato" data-svc="Vitrificação">Agendar</a>
+        </article>
+      </div>
+      <p class="note">Valores sob consulta, de acordo com o porte e o estado do carro.</p>
+    </section>
+
+    <!-- AGENDAR -->
+    <section class="contato" id="contato">
+      <div class="contato__text">
+        <p class="kicker">Agendamento</p>
+        <h2 class="big">Faça seu<br /><em>agendamento.</em></h2>
+        <p class="lead">Preenche aqui que a conversa já abre no nosso WhatsApp com tudo escrito.</p>
+        <p class="addr">Vila Formosa · São Paulo<br />WhatsApp (11) 99434-2957 · @vhstudioauto</p>
+      </div>
+      <form class="form" id="form">
+        <label>Seu nome<input type="text" id="fName" autocomplete="name" required /></label>
+        <label>Carro e ano<input type="text" id="fCar" placeholder="Ex.: Onix 2020 prata" required /></label>
+        <label>Serviço
+          <select id="fService">
+            <option>Lavagem</option><option>Lavagem detalhada</option><option>Higienização</option><option selected>Polimento</option><option>Vitrificação</option>
+          </select>
+        </label>
+        <button class="btn" type="submit">Agendar no WhatsApp</button>
+        <p class="wa-note">Abre o WhatsApp com a mensagem pronta. É só enviar.</p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p><strong>Modelo de proposta.</strong> Site não oficial, criado pela <a href="https://github.com/gabrieljuliattip-arch/scroll-house" target="_blank" rel="noopener">Scroll House</a> para apresentação à VH Studio Auto. <a href="https://www.instagram.com/vhstudioauto/" target="_blank" rel="noopener">Instagram @vhstudioauto</a></p>
+  </footer>
+
+  <div class="proposal">Proposta · Scroll House</div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>

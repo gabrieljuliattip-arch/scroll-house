@@ -25,33 +25,46 @@ export function createWater(sample) {
   mesh.renderOrder = 5;
   mesh.frustumCulled = false;
 
-  // posição inicial, tamanho, quando aparece e quando começa a escorrer
+  // ponto de impacto, tamanho, quando bate e quão rápido escorre
   const rnd = (a, b) => a + Math.random() * (b - a);
   const drops = Array.from({ length: N }, () => {
-    const big = Math.random() < 0.18;
+    const big = Math.random() < 0.2;
     return {
-      x: rnd(-2.7, 2.4), y: rnd(-0.4, 1.4),
-      r: big ? rnd(0.04, 0.065) : rnd(0.012, 0.035),
-      born: rnd(0.02, 0.28), run: rnd(0.36, 0.62), accel: big ? rnd(18, 30) : rnd(8, 16),
+      x: rnd(-2.7, 2.4), y: rnd(-0.2, 1.45),
+      r: big ? rnd(0.035, 0.06) : rnd(0.012, 0.032),
+      hit: rnd(0.03, 0.8),                       // momento em que bate na pintura
+      v0: rnd(0.6, 1.4), accel: big ? rnd(30, 45) : rnd(14, 26),
     };
   });
 
   const m4 = new THREE.Matrix4(), p = new THREE.Vector3(), n = new THREE.Vector3(), q = new THREE.Quaternion(), s = new THREE.Vector3();
-  const zAxis = new THREE.Vector3(0, 0, 1), zero = new THREE.Matrix4().makeScale(0, 0, 0);
+  const zAxis = new THREE.Vector3(0, 0, 1), zero = new THREE.Matrix4().makeScale(0, 0, 0), ident = new THREE.Quaternion();
+  const FALL = 0.035; // trecho do scroll em que a gota está caindo no ar
 
-  /** q: progresso 0..1 da seção de vitrificação */
+  /** prog: progresso 0..1 da seção de vitrificação (rolar para trás desfaz) */
   function update(prog) {
     drops.forEach((d, i) => {
-      const grow = THREE.MathUtils.smoothstep(prog, d.born, d.born + 0.06);
-      if (grow <= 0) { mesh.setMatrixAt(i, zero); return; }
-      const fall = Math.max(0, prog - d.run);
-      const y = d.y - fall * fall * d.accel;
-      const hit = sample(d.x, y, p, n);
-      if (!hit) { mesh.setMatrixAt(i, zero); return; }
+      const t = prog - d.hit;
+      if (t < -FALL) { mesh.setMatrixAt(i, zero); return; }
+      if (t < 0) {
+        // caindo no ar até o ponto de impacto
+        if (!sample(d.x, d.y, p, n)) { mesh.setMatrixAt(i, zero); return; }
+        const k = 1 + t / FALL; // 0 → 1
+        p.y += (1 - k) * 1.6;
+        p.z += (1 - k) * 0.6;
+        s.set(d.r * 0.8, d.r * 1.5, d.r * 0.8);
+        m4.compose(p, ident, s);
+        mesh.setMatrixAt(i, m4);
+        return;
+      }
+      // bateu: já escorre, acelerando
+      const y = d.y - (d.v0 * t + t * t * d.accel);
+      if (!sample(d.x, y, p, n)) { mesh.setMatrixAt(i, zero); return; }
       q.setFromUnitVectors(zAxis, n);
-      const stretch = fall > 0 ? 1 + Math.min(1.2, fall * 6) : 1;  // alonga quando escorre
-      s.set(d.r * grow, d.r * grow * stretch, d.r * 0.62 * grow);
-      p.addScaledVector(n, d.r * 0.25);
+      const splash = 1 + 0.35 * Math.exp(-t * 90);          // "achata" no impacto
+      const stretch = 1 + Math.min(1.4, t * 9);               // alonga ao escorrer
+      s.set(d.r * splash, d.r * stretch, d.r * 0.55 / splash);
+      p.addScaledVector(n, d.r * 0.22);
       m4.compose(p, q, s);
       mesh.setMatrixAt(i, m4);
     });
