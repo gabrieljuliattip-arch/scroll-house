@@ -102,6 +102,29 @@ function screwHead(r, h) {
   return g;
 }
 
+// Tubo com espessura que afina ao longo do caminho (hastes e argolas arredondadas)
+function taperTube(points3, r0, r1, { closed = false, seg = 96, radial = 24, zScale = 0.72 } = {}) {
+  const curve = new THREE.CatmullRomCurve3(points3, closed, 'centripetal');
+  const g = new THREE.TubeGeometry(curve, seg, 1, radial, closed);
+  const pos = g.attributes.position;
+  const c = new THREE.Vector3(), v = new THREE.Vector3();
+  for (let i = 0; i < pos.count; i++) {
+    const t = Math.floor(i / (radial + 1)) / seg;
+    curve.getPointAt(Math.min(1, t), c);
+    v.fromBufferAttribute(pos, i).sub(c);
+    const r = r0 + (r1 - r0) * t;
+    v.multiplyScalar(r);
+    v.z *= zScale;
+    pos.setXYZ(i, c.x + v.x, c.y + v.y, c.z + v.z);
+  }
+  g.computeVertexNormals();
+  return g;
+}
+const ellipsePts = (cx, cy, rx, ry, rot, n = 64) => Array.from({ length: n }, (_, i) => {
+  const a = (i / n) * Math.PI * 2, x = Math.cos(a) * rx, y = Math.sin(a) * ry;
+  return new THREE.Vector3(cx + x * Math.cos(rot) - y * Math.sin(rot), cy + x * Math.sin(rot) + y * Math.cos(rot), 0);
+});
+
 /* ---------- Tesoura ---------- */
 function shearPiece(sign) {
   const g = new THREE.Group();
@@ -125,26 +148,26 @@ function shearPiece(sign) {
   boss.absarc(0, 0, 0.19, 0, Math.PI * 2, false);
   const bossMesh = new THREE.Mesh(smooth(extrude(boss, 0.03, 0.016)), mirror);
 
-  // Haste curva até a argola
+  // Haste curva até a argola (seção redonda, afinando)
   const ringC = V(-1.18, -0.42 * s);
-  const shank = bandShape([[-0.12, -0.02 * s], [-0.55, -0.12 * s], [-0.86, -0.3 * s], [ringC.x + 0.28, ringC.y + 0.08 * s]], 0.17, 0.12);
-  const shankMesh = new THREE.Mesh(smooth(extrude(shank, 0.034, 0.018)), mirror);
+  const P = (x, y) => new THREE.Vector3(x, y, 0);
+  const shankGeo = taperTube([P(-0.05, -0.01 * s), P(-0.45, -0.08 * s), P(-0.78, -0.24 * s), P(ringC.x + 0.25, ringC.y + 0.12 * s)], 0.105, 0.075);
+  const shankMesh = new THREE.Mesh(shankGeo, mirror);
 
-  // Argola
-  const ring = ringShape(ringC.x, ringC.y, 0.36, 0.29, 0.25, 0.185, -0.25 * s);
-  const ringMesh = new THREE.Mesh(smooth(extrude(ring, 0.036, 0.022, 64)), mirror);
+  // Argola oval com seção redonda
+  const ringMesh = new THREE.Mesh(taperTube(ellipsePts(ringC.x, ringC.y, 0.31, 0.245, -0.25 * s), 0.07, 0.07, { closed: true, seg: 128 }), mirror);
 
-  [bladeMesh, bossMesh, shankMesh, ringMesh].forEach((m) => { m.position.z = -0.018; });
+  bladeMesh.position.z = -0.018;
+  bossMesh.position.z = -0.018;
   g.add(bladeMesh, bossMesh, shankMesh, ringMesh);
 
   // Apoio de dedo (só na peça de cima, como nas tesouras de barbeiro)
   if (s > 0) {
-    const spur = bandShape([[ringC.x - 0.2, ringC.y - 0.24], [ringC.x - 0.42, ringC.y - 0.42], [ringC.x - 0.66, ringC.y - 0.44]], 0.09, 0.05);
-    const spurMesh = new THREE.Mesh(smooth(extrude(spur, 0.03, 0.016)), mirror);
-    spurMesh.position.z = -0.016;
-    const tipBall = new THREE.Mesh(new THREE.SphereGeometry(0.045, 24, 16), mirror);
-    tipBall.position.set(ringC.x - 0.68, ringC.y - 0.44, 0);
-    g.add(spurMesh, tipBall);
+    const spurGeo = taperTube([P(ringC.x - 0.12, ringC.y - 0.26), P(ringC.x - 0.36, ringC.y - 0.42), P(ringC.x - 0.62, ringC.y - 0.47)], 0.05, 0.03, { seg: 48 });
+    const tipBall = new THREE.Mesh(new THREE.SphereGeometry(0.042, 32, 20), mirror);
+    tipBall.position.set(ringC.x - 0.63, ringC.y - 0.47, 0);
+    tipBall.scale.z = 0.72;
+    g.add(new THREE.Mesh(spurGeo, mirror), tipBall);
   }
   g.position.z = 0.036 * s;
   return g;

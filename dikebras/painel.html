@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Painel — Dikebras</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Permanent+Marker&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/app.css" />
+  <script type="importmap">
+    { "imports": { "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm" } }
+  </script>
+</head>
+<body>
+  <header class="top">
+    <a href="index.html" class="logo">DIKEBRAS</a>
+    <nav id="appNav" aria-label="Agenda"><a href="agendar.html">Agendar</a><a href="conta.html">Minha conta</a><a href="painel.html" aria-current="page">Painel</a></nav>
+  </header>
+
+  <main class="wrap">
+    <span class="tape">Painel da equipe</span>
+    <h1>Agenda das <span class="marker">cadeiras.</span></h1>
+
+    <section id="noAccess" class="card" hidden style="margin-top:20px">
+      <p id="noAccessTxt">Entre com a conta da equipe para ver a agenda.</p>
+      <p style="margin-top:14px"><a class="btn" href="conta.html?tab=login">Entrar</a></p>
+    </section>
+
+    <section id="panel" hidden>
+      <div class="panel-bar">
+        <div class="cats" id="barberTabs" role="group" aria-label="Barbeiro" style="margin:0"></div>
+        <div class="datenav">
+          <button class="btn btn--ghost btn--small" id="prevDay" aria-label="Dia anterior">◀</button>
+          <input type="date" id="dayInput" aria-label="Dia" />
+          <button class="btn btn--ghost btn--small" id="nextDay" aria-label="Próximo dia">▶</button>
+          <button class="btn btn--ghost btn--small" id="today">Hoje</button>
+        </div>
+      </div>
+      <p class="sub" id="dayLabel"></p>
+      <div class="board" id="board" style="margin-top:14px"></div>
+
+      <section class="card" style="margin-top:22px">
+        <h2>Bloquear horário</h2>
+        <p class="sub" style="margin:4px 0 14px">Almoço, folga ou compromisso: o horário some da agenda online.</p>
+        <form class="block-form" id="blockForm">
+          <label id="blockBarberWrap">Barbeiro<select id="blockBarber"></select></label>
+          <label>Dia<input type="date" id="blockDay" required /></label>
+          <label>De<input type="time" id="blockFrom" value="12:00" step="1800" required /></label>
+          <label>Até<input type="time" id="blockTo" value="13:00" step="1800" required /></label>
+          <label>Motivo<input type="text" id="blockReason" placeholder="Almoço" /></label>
+          <button class="btn" type="submit">Bloquear</button>
+        </form>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="js/app/painel.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Minha conta — Dikebras</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Permanent+Marker&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/app.css" />
+  <script type="importmap">
+    { "imports": { "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm" } }
+  </script>
+</head>
+<body>
+  <header class="top">
+    <a href="index.html" class="logo">DIKEBRAS</a>
+    <nav id="appNav" aria-label="Agenda"><a href="agendar.html">Agendar</a><a href="conta.html" aria-current="page">Entrar / Cadastro</a></nav>
+  </header>
+
+  <main class="wrap">
+    <!-- Visitante: cadastro / entrar -->
+    <section id="guest" hidden>
+      <div class="auth">
+        <span class="tape">Cadastro</span>
+        <h1>Faz teu <span class="marker">cadastro.</span></h1>
+        <p class="sub">Com a sua foto, o barbeiro já sabe quem tá chegando.</p>
+
+        <div class="tabs" role="tablist" style="margin-top:22px">
+          <button role="tab" id="tabSignup" aria-selected="true" aria-controls="signup">Criar conta</button>
+          <button role="tab" id="tabLogin" aria-selected="false" aria-controls="login">Entrar</button>
+        </div>
+
+        <form class="card" id="signup" role="tabpanel" aria-labelledby="tabSignup" novalidate>
+          <label class="photo-pick" for="suPhoto">
+            <span class="ph" id="suPreview" aria-hidden="true">📷</span>
+            <span><b>Sua foto</b><small>Uma selfie de rosto, bem iluminada. Toque para escolher.</small></span>
+            <input type="file" id="suPhoto" accept="image/*" />
+          </label>
+          <label>Nome completo<input type="text" id="suName" autocomplete="name" required /></label>
+          <label>WhatsApp<input type="tel" id="suPhone" autocomplete="tel" inputmode="tel" placeholder="(11) 90000-0000" required /></label>
+          <label>E-mail<input type="email" id="suEmail" autocomplete="email" required /></label>
+          <label>Senha<input type="password" id="suPass" autocomplete="new-password" minlength="6" required /></label>
+          <button class="btn btn--block" type="submit">Criar conta</button>
+        </form>
+
+        <form class="card" id="login" role="tabpanel" aria-labelledby="tabLogin" hidden novalidate>
+          <label>E-mail<input type="email" id="liEmail" autocomplete="email" required /></label>
+          <label>Senha<input type="password" id="liPass" autocomplete="current-password" required /></label>
+          <button class="btn btn--block" type="submit">Entrar</button>
+          <button class="link-btn" type="button" id="forgot">Esqueci minha senha</button>
+        </form>
+
+        <form class="card" id="newpass" hidden novalidate>
+          <h2>Nova senha</h2>
+          <label>Digite a nova senha<input type="password" id="npPass" autocomplete="new-password" minlength="6" required /></label>
+          <button class="btn btn--block" type="submit">Salvar senha</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Cliente logado -->
+    <section id="member" hidden>
+      <span class="tape">Minha conta</span>
+      <div class="card me" style="margin-top:18px">
+        <label class="photo-pick" for="mePhoto" title="Trocar foto">
+          <span class="ph" id="meAvatar" aria-hidden="true"></span>
+          <input type="file" id="mePhoto" accept="image/*" />
+        </label>
+        <div style="flex:1;min-width:200px">
+          <h2 id="meName"></h2>
+          <p class="meta" id="meMeta"></p>
+          <p class="meta" id="meRole"></p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <a href="agendar.html" class="btn">Agendar</a>
+          <a href="painel.html" class="btn btn--ghost" id="toPanel" hidden>Painel</a>
+          <button class="btn btn--ghost" id="logout">Sair</button>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <section class="card">
+          <h2>Próximos horários</h2>
+          <div class="appt-list" id="upcoming"><p class="loading">Carregando…</p></div>
+        </section>
+        <section class="card">
+          <h2>Meus dados</h2>
+          <form id="editForm" style="margin-top:14px">
+            <label>Nome completo<input type="text" id="edName" autocomplete="name" required /></label>
+            <label>WhatsApp<input type="tel" id="edPhone" autocomplete="tel" inputmode="tel" required /></label>
+            <button class="btn btn--ghost" type="submit">Salvar</button>
+          </form>
+          <h2 style="margin-top:26px">Histórico</h2>
+          <div class="appt-list" id="history"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <div class="proposal">Proposta · Scroll House</div>
+  <script type="module" src="js/app/conta.js"></script>
+</body>
+</html>

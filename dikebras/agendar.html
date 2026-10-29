@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Agendar — Dikebras</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Permanent+Marker&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/app.css" />
+  <script type="importmap">
+    { "imports": { "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm" } }
+  </script>
+</head>
+<body>
+  <header class="top">
+    <a href="index.html" class="logo">DIKEBRAS</a>
+    <nav id="appNav" aria-label="Agenda"><a href="agendar.html" aria-current="page">Agendar</a><a href="conta.html">Entrar / Cadastro</a></nav>
+  </header>
+
+  <main class="wrap">
+    <span class="tape">Agenda online</span>
+    <h1>Marca teu <span class="marker">horário.</span></h1>
+    <p class="sub">Terça a sábado, das 10h às 19h. Domingo e segunda a casa descansa.</p>
+
+    <div class="book" id="book">
+      <div class="steps">
+        <section class="step" id="stepBarber">
+          <h2><span class="num">1</span>Escolha o barbeiro</h2>
+          <div class="barbers" id="barbers"><p class="loading">Carregando…</p></div>
+        </section>
+
+        <section class="step is-locked" id="stepService">
+          <h2><span class="num">2</span>Escolha o serviço</h2>
+          <div class="cats" id="cats" role="group" aria-label="Categorias"></div>
+          <div class="services" id="services"></div>
+        </section>
+
+        <section class="step is-locked" id="stepDay">
+          <h2><span class="num">3</span>Escolha o dia</h2>
+          <div class="days" id="days"></div>
+        </section>
+
+        <section class="step is-locked" id="stepTime">
+          <h2><span class="num">4</span>Escolha o horário</h2>
+          <div id="slots"><p class="empty">Escolha o dia para ver os horários livres.</p></div>
+        </section>
+      </div>
+
+      <aside class="card summary" id="summary">
+        <div class="mini"><span id="miniTxt">Escolha barbeiro, serviço, dia e horário</span></div>
+        <h2>Resumo</h2>
+        <dl>
+          <div><dt>Barbeiro</dt><dd id="sBarber">—</dd></div>
+          <div><dt>Serviço</dt><dd id="sService">—</dd></div>
+          <div><dt>Dia</dt><dd id="sDay">—</dd></div>
+          <div><dt>Horário</dt><dd id="sTime">—</dd></div>
+          <div class="total"><dt>Valor</dt><dd id="sPrice">—</dd></div>
+        </dl>
+        <button class="btn btn--block" id="confirm" disabled>Confirmar agendamento</button>
+        <p class="note" id="confirmNote">Pagamento na barbearia. Cancelamento pelo site até 1 hora antes.</p>
+      </aside>
+    </div>
+
+    <section class="card done" id="done" hidden>
+      <div class="big-check" aria-hidden="true">✂️</div>
+      <h2>Tá marcado!</h2>
+      <p id="doneTxt" class="sub"></p>
+      <div class="actions">
+        <a href="conta.html" class="btn">Ver meus horários</a>
+        <a href="agendar.html" class="btn btn--ghost">Marcar outro</a>
+      </div>
+    </section>
+  </main>
+
+  <div class="proposal">Proposta · Scroll House</div>
+  <script type="module" src="js/app/agendar.js"></script>
+</body>
+</html>
