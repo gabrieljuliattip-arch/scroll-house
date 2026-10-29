@@ -78,7 +78,9 @@ h2 .num {
 
 /* ---------- Agendar ---------- */
 .book { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 28px; margin-top: 28px; align-items: start; }
-.steps { display: grid; gap: 22px; }
+.steps { display: grid; gap: 22px; min-width: 0; }
+.book > *, .step, .grid-2 > *, .board > * { min-width: 0; }
+body { overflow-x: clip; }
 .step { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
 .step.is-locked { opacity: .45; pointer-events: none; }
 .step h2 { margin-bottom: 16px; }
