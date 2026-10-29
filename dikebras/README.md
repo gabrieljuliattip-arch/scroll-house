@@ -1,6 +1,6 @@
 # Dikebras — modelo de site (proposta)
 
-Proposta de site para a **Dikebras Barbearia | Bar & Sinuca**, feita pela **Scroll House**. Não é o site oficial da barbearia.
+Proposta de site para a **Dikebras Barbearia | Bar & Sinuca**, feita pela **Scroll House** e publicada na Vercel. Não é o site oficial da barbearia.
 
 Três animações 3D guiadas pelo scroll:
 1. **Tesoura e navalha**: a tesoura corta conforme você rola e a navalha abre ao chegar no cardápio.
