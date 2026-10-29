@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Navalha Barbearia — Corte na régua em Pinheiros</title>
+  <meta name="description" content="Navalha Barbearia: corte, barba e navalhado em Pinheiros, São Paulo. Site conceito por Scroll House." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,800;1,9..144,400;1,9..144,600&family=Archivo:wght@400;500;600&family=Archivo+Narrow:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+        "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js",
+        "gsap/ScrollTrigger": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="loader" id="loader">
+    <span class="loader__word">Navalha</span>
+    <span class="loader__bar"><i id="loaderBar"></i></span>
+  </div>
+
+  <div class="bg" aria-hidden="true"></div>
+  <canvas id="webgl" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a href="#topo" class="nav__logo">Navalha<span>barbearia</span></a>
+    <nav class="nav__links">
+      <a href="#servicos">Serviços</a>
+      <a href="#equipe">Equipe</a>
+      <a href="#agendar">Horários</a>
+    </nav>
+    <a href="#agendar" class="btn btn--small">Agendar</a>
+  </header>
+
+  <main class="content">
+    <!-- HERO -->
+    <section class="hero" id="topo">
+      <h1 class="hero__title">
+        <span class="hero__line hero__line--a"><span>Corte</span></span>
+        <span class="hero__line hero__line--b"><em>na régua.</em></span>
+      </h1>
+      <div class="hero__foot">
+        <p class="hero__tag reveal">Barbearia em Pinheiros, São Paulo.<br />Corte, barba e navalhado desde 2014.</p>
+        <div class="hero__scroll reveal"><span>Role</span><i></i></div>
+      </div>
+    </section>
+
+    <!-- A CASA -->
+    <section class="casa panel">
+      <div class="panel__text">
+        <p class="eyebrow">A casa</p>
+        <h2 class="big">Cadeira de couro,<br /><em>toalha quente,</em><br />conversa boa.</h2>
+        <p class="lead">Atendimento com hora marcada, sem fila e sem pressa. Cada corte começa com uma conversa e termina com a navalha alinhando o acabamento.</p>
+      </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section class="servicos panel" id="servicos">
+      <div class="panel__text">
+        <p class="eyebrow">Serviços</p>
+        <h2 class="big">Tabela da casa</h2>
+        <ul class="menu">
+          <li><span class="menu__name">Corte</span><span class="menu__time">40 min</span><span class="menu__dots"></span><span class="menu__price">R$ 60</span></li>
+          <li><span class="menu__name">Barba com toalha quente</span><span class="menu__time">30 min</span><span class="menu__dots"></span><span class="menu__price">R$ 45</span></li>
+          <li class="is-featured"><span class="menu__name">Corte + barba</span><span class="menu__time">70 min</span><span class="menu__dots"></span><span class="menu__price">R$ 95</span></li>
+          <li><span class="menu__name">Pigmentação</span><span class="menu__time">20 min</span><span class="menu__dots"></span><span class="menu__price">R$ 40</span></li>
+          <li><span class="menu__name">Sobrancelha na navalha</span><span class="menu__time">10 min</span><span class="menu__dots"></span><span class="menu__price">R$ 25</span></li>
+          <li><span class="menu__name">Pezinho</span><span class="menu__time">10 min</span><span class="menu__dots"></span><span class="menu__price">R$ 20</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- EQUIPE -->
+    <section class="equipe panel panel--right" id="equipe">
+      <div class="panel__text">
+        <p class="eyebrow">Equipe</p>
+        <h2 class="big">Mãos que<br /><em>entendem</em> de corte.</h2>
+        <div class="team">
+          <article class="barber">
+            <span class="barber__mono">RL</span>
+            <div><h3>Rafa Lima</h3><p>Degradê e navalhado</p></div>
+          </article>
+          <article class="barber">
+            <span class="barber__mono">TS</span>
+            <div><h3>Tião Souza</h3><p>Barba clássica</p></div>
+          </article>
+          <article class="barber">
+            <span class="barber__mono">DR</span>
+            <div><h3>Duda Reis</h3><p>Visagismo e textura</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- AGENDAR -->
+    <section class="agendar" id="agendar">
+      <h2 class="agendar__title">Sua cadeira<br /><em>tá esperando.</em></h2>
+      <div class="agendar__grid">
+        <div class="info">
+          <p class="eyebrow">Horários</p>
+          <dl class="hours">
+            <div><dt>Terça a sexta</dt><dd>10h – 21h</dd></div>
+            <div><dt>Sábado</dt><dd>9h – 19h</dd></div>
+            <div><dt>Domingo e segunda</dt><dd>Fechado</dd></div>
+          </dl>
+        </div>
+        <div class="info">
+          <p class="eyebrow">Endereço</p>
+          <p class="address">Rua Fictícia, 123<br />Pinheiros, São Paulo</p>
+          <a href="#agendar" class="btn">Agendar horário</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Navalha Barbearia é uma marca fictícia. Site conceito desenvolvido por <a href="https://github.com/gabrieljuliattip-arch/scroll-house" target="_blank" rel="noopener">Scroll House</a>.</p>
+  </footer>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>

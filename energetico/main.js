@@ -231,27 +231,26 @@ function applyPose(p) {
   rig.scale.setScalar(p.s);
 }
 
-// Interpola entre duas poses enquanto a próxima seção entra na tela
-function segment(trigger, from, to, opts = {}) {
-  const state = { t: 0 };
-  ScrollTrigger.create({
-    trigger,
-    start: opts.start || 'top 70%',
-    end: opts.end || 'top top',
-    scrub: 1,
-    invalidateOnRefresh: true,
-    onUpdate: (self) => {
-      state.t = self.progress;
-      const a = POSES[from](), b = POSES[to]();
-      const e = gsap.parseEase('power2.inOut')(state.t);
-      const mix = {};
-      for (const k in a) mix[k] = a[k] + (b[k] - a[k]) * e;
-      currentTarget = mix;
-    },
-  });
-}
-
+// Cada trecho interpola entre duas poses; o alvo vem do último trecho já iniciado
 let currentTarget = POSES.hero();
+const segments = [];
+const segEase = gsap.parseEase('power2.inOut');
+function updateTarget() {
+  let seg = null;
+  for (const s of segments) if (s.st.progress > 0) seg = s;
+  if (!seg) { currentTarget = POSES.hero(); return; }
+  const a = POSES[seg.from](), b = POSES[seg.to](), e = segEase(seg.st.progress);
+  const mix = {};
+  for (const k in a) mix[k] = a[k] + (b[k] - a[k]) * e;
+  currentTarget = mix;
+}
+function segment(trigger, from, to) {
+  const st = ScrollTrigger.create({
+    trigger, start: 'top 70%', end: 'top top', invalidateOnRefresh: true,
+    onUpdate: updateTarget, onRefresh: updateTarget,
+  });
+  segments.push({ st, from, to });
+}
 
 /* ---------- Troca de sabor ---------- */
 const textures = [];
