@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RAIO Energy — Energia sem enrolação</title>
+  <meta name="description" content="RAIO Energy: energético brasileiro, zero açúcar, 160 mg de cafeína. Site conceito por Scroll House." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+        "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js",
+        "gsap/ScrollTrigger": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- Tela de carregamento -->
+  <div class="loader" id="loader">
+    <span class="loader__word">RAIO</span>
+    <span class="loader__bar"><i id="loaderBar"></i></span>
+  </div>
+
+  <!-- Fundo e cena 3D fixos -->
+  <div class="bg" aria-hidden="true"></div>
+  <canvas id="webgl" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a href="#topo" class="nav__logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg>RAIO</a>
+    <nav class="nav__links">
+      <a href="#sabores">Sabores</a>
+      <a href="#formula">Fórmula</a>
+      <a href="#comprar">Comprar</a>
+    </nav>
+    <a href="#comprar" class="btn btn--small">Peça já</a>
+  </header>
+
+  <main class="content">
+    <!-- 1. HERO -->
+    <section class="hero" id="topo">
+      <h1 class="hero__word" aria-label="Ligado">
+        <span>L</span><span>I</span><span>G</span><span>A</span><span>D</span><span>O</span><span>.</span>
+      </h1>
+      <div class="hero__foot">
+        <p class="hero__tag reveal">Energético brasileiro.<br />Zero açúcar. 160&nbsp;mg de cafeína.</p>
+        <div class="hero__scroll reveal"><span>Role</span><i></i></div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Zero açúcar ✦ 160 mg cafeína ✦ Feito em SP ✦ Vitaminas B ✦ Zero açúcar ✦ 160 mg cafeína ✦ Feito em SP ✦ Vitaminas B ✦</span>
+        <span>Zero açúcar ✦ 160 mg cafeína ✦ Feito em SP ✦ Vitaminas B ✦ Zero açúcar ✦ 160 mg cafeína ✦ Feito em SP ✦ Vitaminas B ✦</span>
+      </div>
+    </div>
+
+    <!-- 2. INTRO -->
+    <section class="intro panel">
+      <div class="panel__text">
+        <p class="eyebrow">01 — Manifesto</p>
+        <h2 class="big">Sem<br />enrolação.</h2>
+        <p class="lead">Nada de açúcar escondido, nada de sabor de remédio. Só cafeína na medida, vitaminas do complexo B e um gosto que dá vontade de abrir a segunda.</p>
+      </div>
+    </section>
+
+    <!-- 3. SABORES (fixado) -->
+    <section class="flavors" id="sabores">
+      <div class="flavors__inner">
+        <div class="flavors__text">
+          <p class="eyebrow">02 — Sabores</p>
+          <p class="flavors__count"><span id="flavorIndex">01</span> / 04</p>
+          <h2 class="flavors__name" id="flavorName">Original</h2>
+          <p class="flavors__sub" id="flavorSub">Cítrico elétrico</p>
+          <ul class="flavors__list" id="flavorList">
+            <li class="is-active">Original</li>
+            <li>Maracujá</li>
+            <li>Açaí</li>
+            <li>Limão Zero</li>
+          </ul>
+        </div>
+        <div class="flavors__progress"><i id="flavorProgress"></i></div>
+      </div>
+    </section>
+
+    <!-- 4. FÓRMULA -->
+    <section class="specs panel panel--right" id="formula">
+      <div class="panel__text">
+        <p class="eyebrow">03 — Fórmula</p>
+        <h2 class="big">Pequena lata.<br />Grande efeito.</h2>
+        <div class="stats">
+          <div class="stat"><strong data-count="160">0</strong><span>mg de cafeína</span></div>
+          <div class="stat"><strong data-count="0">0</strong><span>g de açúcar</span></div>
+          <div class="stat"><strong data-count="10">0</strong><span>kcal por lata</span></div>
+          <div class="stat"><strong data-count="473">0</strong><span>ml</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. CTA -->
+    <section class="cta" id="comprar">
+      <h2 class="cta__title">Sinta o<br /><em>raio.</em></h2>
+      <div class="cta__actions">
+        <a href="#comprar" class="btn">Comprar agora</a>
+        <a href="#sabores" class="btn btn--ghost">Ver sabores</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>RAIO Energy é uma marca fictícia. Site conceito desenvolvido por <a href="https://github.com/gabrieljuliattip-arch" target="_blank" rel="noopener">Scroll House</a>.</p>
+  </footer>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
