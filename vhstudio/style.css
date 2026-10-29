@@ -102,6 +102,15 @@ section { position: relative; padding: 0 var(--gutter); z-index: 2; }
 .price { font-size: 26px; font-weight: 600; padding-top: 12px; border-top: 1px solid var(--line); }
 .card--hot { border-color: var(--ice); background: linear-gradient(180deg, rgba(227, 38, 47, .16), rgba(18, 21, 27, .8)); }
 .badge { position: absolute; top: -11px; left: 20px; padding: 3px 10px; border-radius: 4px; background: var(--ice); color: var(--white); font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; font-weight: 600; }
+.planos { min-height: 100vh; padding-top: 120px; padding-bottom: 60px; display: flex; flex-direction: column; justify-content: center; }
+.planos__head { margin-left: auto; width: min(52%, 640px); }
+.cards--3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+.card .price { border-top: 0; padding-top: 0; font-size: 34px; }
+.seg { display: inline-grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 24px; padding: 4px; border-radius: 8px; border: 1px solid var(--line); background: rgba(18, 21, 27, .7); }
+.seg button { cursor: pointer; border: 0; background: transparent; color: var(--muted); padding: 10px 14px; border-radius: 6px; font: 600 14px var(--body); }
+.seg button[aria-selected="true"] { background: var(--ice); color: var(--white); }
+.tag-eval { align-self: flex-start; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; padding: 4px 8px; border-radius: 4px; border: 1px solid var(--ice); color: var(--white); }
+.servicos .lead { max-width: 52ch; }
 .note { margin-top: 16px; font-size: 13px; color: var(--muted); }
 
 /* Contato */
@@ -140,7 +149,9 @@ section { position: relative; padding: 0 var(--gutter); z-index: 2; }
   .specs { margin-top: 14px; }
   .specs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
   .specs dd { font-size: 18px; }
-  .servicos__head { width: 100%; }
+  .servicos__head, .planos__head { width: 100%; }
+  .cards--3 { grid-template-columns: 1fr !important; }
+  .seg { display: grid; width: 100%; }
   .cards { grid-template-columns: 1fr; }
   .contato { grid-template-columns: 1fr; }
 }

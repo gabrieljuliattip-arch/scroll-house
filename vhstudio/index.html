@@ -33,6 +33,7 @@
     <nav class="nav__links">
       <a href="#polimento">Polimento</a>
       <a href="#vitrificacao">Vitrificação</a>
+      <a href="#planos">Planos</a>
       <a href="#servicos">Serviços</a>
       <a href="#contato">Agendar</a>
     </nav>
@@ -45,10 +46,10 @@
       <div class="hero__text">
         <p class="kicker reveal">Estética automotiva · Vila Formosa</p>
         <h1 class="hero__title"><span>O brilho que</span><span>seu carro</span><span><em>merece.</em></span></h1>
-        <p class="lead reveal">Com a perfeição que você exige. Lavagem, higienização, polimento e vitrificação com hora marcada.</p>
+        <p class="lead reveal">Com a perfeição que você exige. Planos de lavagem a partir de R$ 50, além de higienização, polimento e vitrificação.</p>
         <div class="hero__cta reveal">
           <a href="#contato" class="btn">Agende agora</a>
-          <a href="#servicos" class="btn btn--ghost">Nossos serviços</a>
+          <a href="#planos" class="btn btn--ghost">Ver planos</a>
         </div>
       </div>
       <div class="split-tag reveal" aria-hidden="true"><span>Antes</span><i></i><span>Depois</span></div>
@@ -90,46 +91,66 @@
       </div>
     </section>
 
-    <!-- SERVIÇOS -->
-    <section class="servicos" id="servicos">
-      <div class="servicos__head">
-        <p class="kicker">Nossos serviços</p>
-        <h2 class="big">Cada carro<br /><em>no capricho.</em></h2>
+    <!-- PLANOS DE LAVAGEM -->
+    <section class="planos" id="planos">
+      <div class="planos__head">
+        <p class="kicker">Planos de lavagem</p>
+        <h2 class="big">Três níveis<br /><em>de cuidado.</em></h2>
+        <div class="seg" role="tablist" aria-label="Tipo de carro">
+          <button role="tab" aria-selected="true" data-size="Hatch/Sedan">Hatch / Sedan</button>
+          <button role="tab" aria-selected="false" data-size="SUV grande/Caminhonete">SUV grande / Caminhonete</button>
+        </div>
       </div>
-      <div class="cards">
+      <div class="cards cards--3">
         <article class="card">
-          <h3>Lavagem</h3>
-          <p>Lavagem completa por fora e por dentro, para o dia a dia.</p>
-          <ul><li>Externa</li><li>Interna</li></ul>
-          <a class="btn btn--ghost btn--small" href="#contato" data-svc="Lavagem">Agendar</a>
+          <h3>Start</h3>
+          <b class="price mono" data-price="50|70">R$ 50</b>
+          <p>Lavagem externa completa + limpeza interna essencial.</p>
+          <a class="btn btn--ghost btn--small" href="#contato" data-svc="Lavagem Start">Agendar Start</a>
         </article>
         <article class="card">
-          <h3>Lavagem detalhada</h3>
-          <p>Detalhe por detalhe: rodas, caixas de roda, frisos, vidros e acabamentos.</p>
-          <ul><li>Rodas</li><li>Acabamentos</li></ul>
-          <a class="btn btn--ghost btn--small" href="#contato" data-svc="Lavagem detalhada">Agendar</a>
-        </article>
-        <article class="card">
-          <h3>Higienização</h3>
-          <p>Bancos, carpete, teto e painel limpos de verdade. Tira mancha e cheiro.</p>
-          <ul><li>Bancos</li><li>Carpete</li></ul>
-          <a class="btn btn--ghost btn--small" href="#contato" data-svc="Higienização">Agendar</a>
+          <h3>Plus</h3>
+          <b class="price mono" data-price="60|80">R$ 60</b>
+          <p>Tudo da Start + aplicação de cera para mais brilho e proteção.</p>
+          <a class="btn btn--ghost btn--small" href="#contato" data-svc="Lavagem Plus">Agendar Plus</a>
         </article>
         <article class="card card--hot">
-          <span class="badge">Antes e depois</span>
+          <span class="badge">Melhor acabamento</span>
+          <h3>Premium</h3>
+          <b class="price mono" data-price="75|120">R$ 75</b>
+          <p>Lavagem completa + descontaminação da pintura + proteção com ceramic em pasta. Mais brilho, toque liso e melhor acabamento.</p>
+          <a class="btn btn--small" href="#contato" data-svc="Lavagem Premium">Agendar Premium</a>
+        </article>
+      </div>
+      <p class="note">Manutenção frequente mantém o carro sempre limpo, protegido e com aparência de novo.</p>
+    </section>
+
+    <!-- SERVIÇOS COM AVALIAÇÃO -->
+    <section class="servicos" id="servicos">
+      <div class="servicos__head">
+        <p class="kicker">Tratamentos</p>
+        <h2 class="big">Primeiro a gente<br /><em>olha o carro.</em></h2>
+        <p class="lead">Cada carro chega de um jeito. Para higienização e polimento, avaliamos o estado antes e passamos o valor certo, sem surpresa.</p>
+      </div>
+      <div class="cards cards--3">
+        <article class="card">
+          <span class="tag-eval">Avaliação antes</span>
+          <h3>Higienização</h3>
+          <p>Bancos, carpete, teto e painel limpos de verdade. Tira mancha e cheiro.</p>
+          <a class="btn btn--ghost btn--small" href="#contato" data-svc="Higienização">Pedir avaliação</a>
+        </article>
+        <article class="card card--hot">
+          <span class="tag-eval">Avaliação antes</span>
           <h3>Polimento</h3>
           <p>Remove riscos finos e marcas, e a pintura volta a ter reflexo.</p>
-          <ul><li>Correção</li><li>Brilho</li></ul>
-          <a class="btn btn--small" href="#contato" data-svc="Polimento">Agendar</a>
+          <a class="btn btn--small" href="#contato" data-svc="Polimento">Pedir avaliação</a>
         </article>
         <article class="card">
           <h3>Vitrificação</h3>
           <p>Proteção cerâmica sobre a pintura: brilho que dura e lavagem mais fácil.</p>
-          <ul><li>Proteção</li><li>Hidrofobia</li></ul>
-          <a class="btn btn--ghost btn--small" href="#contato" data-svc="Vitrificação">Agendar</a>
+          <a class="btn btn--ghost btn--small" href="#contato" data-svc="Vitrificação">Consultar</a>
         </article>
       </div>
-      <p class="note">Valores sob consulta, de acordo com o porte e o estado do carro.</p>
     </section>
 
     <!-- AGENDAR -->
@@ -143,11 +164,16 @@
       <form class="form" id="form">
         <label>Seu nome<input type="text" id="fName" autocomplete="name" required /></label>
         <label>Carro e ano<input type="text" id="fCar" placeholder="Ex.: Onix 2020 prata" required /></label>
+        <label>Tipo de carro
+          <select id="fPorte"><option>Hatch/Sedan</option><option>SUV grande/Caminhonete</option></select>
+        </label>
         <label>Serviço
           <select id="fService">
-            <option>Lavagem</option><option>Lavagem detalhada</option><option>Higienização</option><option selected>Polimento</option><option>Vitrificação</option>
+            <option>Lavagem Start</option><option>Lavagem Plus</option><option selected>Lavagem Premium</option>
+            <option>Higienização</option><option>Polimento</option><option>Vitrificação</option>
           </select>
         </label>
+        <p class="wa-note" id="evalNote" hidden>Higienização e polimento: a equipe avalia o carro antes. Se puder, mande fotos na conversa.</p>
         <button class="btn" type="submit">Agendar no WhatsApp</button>
         <p class="wa-note">Abre o WhatsApp com a mensagem pronta. É só enviar.</p>
       </form>

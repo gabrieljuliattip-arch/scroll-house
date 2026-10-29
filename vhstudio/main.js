@@ -56,6 +56,7 @@ const POSES = [
   () => ({ x: M() ? 0 : sx() * 0.92, y: M() ? 1.65 : -0.35, rx: 0.32, ry: -0.36, s: M() ? 0.5 : 0.9 }), // hero
   () => ({ x: M() ? 0 : sx() * 0.95, y: M() ? 1.75 : -0.3, rx: M() ? 0.34 : 0.26, ry: M() ? -0.18 : -0.24, s: M() ? 0.52 : 0.92 }),     // polimento
   () => ({ x: M() ? 0 : sx() * 0.95, y: M() ? 1.85 : -0.35, rx: M() ? 0.5 : 0.42, ry: -0.12, s: M() ? 0.52 : 0.92 }),   // vitrificação
+  () => ({ x: M() ? 0 : -sx() * 1.05, y: M() ? 7 : 1.9, rx: 0.3, ry: 0.3, s: M() ? 0.45 : 0.4 }),     // planos
   () => ({ x: M() ? 0 : -sx() * 1.05, y: M() ? 7 : 1.9, rx: 0.3, ry: 0.5, s: M() ? 0.45 : 0.4 }),     // serviços
   () => ({ x: M() ? 0 : -sx() * 0.75, y: 8, rx: 0.12, ry: 0.9, s: 0.5 }),                                 // contato
 ];
@@ -148,20 +149,34 @@ window.addEventListener('resize', () => {
   ScrollTrigger.refresh();
 });
 
+/* ---------- Planos: troca de porte muda os preços ---------- */
+const $porte = () => document.getElementById('fPorte');
+function setSize(size) {
+  const idx = size.startsWith('SUV') ? 1 : 0;
+  document.querySelectorAll('.seg button').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.size === size)));
+  document.querySelectorAll('[data-price]').forEach((el) => { el.textContent = `R$ ${el.dataset.price.split('|')[idx]}`; });
+  $porte().value = size;
+}
+document.querySelectorAll('.seg button').forEach((b) => b.addEventListener('click', () => setSize(b.dataset.size)));
+$porte().addEventListener('change', (e) => setSize(e.target.value));
+
 /* ---------- Agendamento: abre o WhatsApp com a mensagem pronta ---------- */
-document.querySelectorAll('[data-svc]').forEach((b) => b.addEventListener('click', () => {
-  document.getElementById('fService').value = b.dataset.svc;
-}));
-document.querySelectorAll('[data-svc]').forEach((b) => b.addEventListener('click', () => {
-  document.getElementById('fService').value = b.dataset.svc;
-}));
+const EVAL = ['Higienização', 'Polimento'];
+const svcSel = document.getElementById('fService');
+const syncNote = () => { document.getElementById('evalNote').hidden = !EVAL.includes(svcSel.value); };
+svcSel.addEventListener('change', syncNote);
+document.querySelectorAll('[data-svc]').forEach((b) => b.addEventListener('click', () => { svcSel.value = b.dataset.svc; syncNote(); }));
+
 const WA = '5511994342957';
 document.getElementById('form').addEventListener('submit', (e) => {
   e.preventDefault();
   const name = document.getElementById('fName').value.trim();
   const car = document.getElementById('fCar').value.trim();
-  const svc = document.getElementById('fService').value;
-  const msg = `Olá, VH Studio Auto! Meu nome é ${name}. Quero agendar ${svc.toLowerCase()} para o meu ${car}.`;
+  const porte = $porte().value;
+  const svc = svcSel.value;
+  const msg = EVAL.includes(svc)
+    ? `Olá, VH Studio Auto! Meu nome é ${name}. Quero uma avaliação de ${svc.toLowerCase()} para o meu ${car} (${porte}). Posso mandar fotos do carro?`
+    : `Olá, VH Studio Auto! Meu nome é ${name}. Quero agendar ${svc === 'Vitrificação' ? 'uma vitrificação' : `a ${svc}`} para o meu ${car} (${porte}).`;
   window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
 });
 
