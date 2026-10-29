@@ -9,4 +9,4 @@ Baseado no conceito da `estetica/`, com a identidade em vermelho:
 - Os 5 serviços do Instagram deles (lavagem, lavagem detalhada, higienização, polimento, vitrificação), valores sob consulta.
 - Agendamento: formulário que abre o WhatsApp deles com a mensagem pronta.
 
-Na Vercel: Framework **Other**, Root Directory **`vhstudio`**.
+Na Vercel: Framework **Other**, Root Directory **`vhstudio`**. Publicado em https://scroll-house-vhstudio.vercel.app
