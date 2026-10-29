@@ -54,8 +54,8 @@ const M = isMobile;
 const SECTIONS = [...document.querySelectorAll('main > section')];
 const POSES = [
   () => ({ x: M() ? 0 : sx() * 0.92, y: M() ? 1.65 : -0.35, rx: 0.32, ry: -0.36, s: M() ? 0.5 : 0.9 }), // hero
-  () => ({ x: M() ? 0 : sx() * 0.95, y: M() ? 1.8 : -0.3, rx: 0.26, ry: -0.24, s: M() ? 0.5 : 0.92 }),     // polimento
-  () => ({ x: M() ? 0 : sx() * 0.95, y: M() ? 1.8 : -0.35, rx: 0.42, ry: -0.12, s: M() ? 0.5 : 0.92 }),   // vitrificação
+  () => ({ x: M() ? 0 : sx() * 0.95, y: M() ? 1.75 : -0.3, rx: M() ? 0.34 : 0.26, ry: M() ? -0.18 : -0.24, s: M() ? 0.52 : 0.92 }),     // polimento
+  () => ({ x: M() ? 0 : sx() * 0.95, y: M() ? 1.85 : -0.35, rx: M() ? 0.5 : 0.42, ry: -0.12, s: M() ? 0.52 : 0.92 }),   // vitrificação
   () => ({ x: M() ? 0 : -sx() * 1.05, y: M() ? 7 : 1.9, rx: 0.3, ry: 0.5, s: M() ? 0.45 : 0.4 }),     // serviços
   () => ({ x: M() ? 0 : -sx() * 0.75, y: 8, rx: 0.12, ry: 0.9, s: 0.5 }),                                 // contato
 ];

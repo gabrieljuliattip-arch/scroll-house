@@ -128,8 +128,16 @@ section { position: relative; padding: 0 var(--gutter); z-index: 2; }
   .stage__inner { align-items: flex-end; padding-bottom: 6vh; }
   .stage__text { max-width: 100%; padding: 20px 16px; border-radius: 12px; background: rgba(10, 11, 14, .78); backdrop-filter: blur(10px); border: 1px solid var(--line); }
   .big { font-size: 12vw; }
-  .process { margin-top: 18px; }
-  .process li { padding: 7px 0; }
+  .process { margin-top: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 12px; }
+  .process li { padding: 6px 0; grid-template-columns: 24px 1fr; font-size: 14px; }
+  .process li span { display: none; }
+  .stage__inner { padding-bottom: 3vh; }
+  .stage__text { padding: 16px 14px; }
+  .stage .big { font-size: 9.6vw; }
+  .vitri .lead { font-size: 14px; margin-top: 12px; }
+  .gauge { margin-top: 12px; }
+  .gauge b { font-size: 20px; }
+  .specs { margin-top: 14px; }
   .specs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
   .specs dd { font-size: 18px; }
   .servicos__head { width: 100%; }
