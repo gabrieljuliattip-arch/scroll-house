@@ -220,9 +220,9 @@ const my = () => (isMobile() ? 1.3 : 0); // no celular a lata sobe para dar espa
 const POSES = {
   hero:    () => ({ x: 0,          y: -0.1,         z: 0,   rx: 0.12, ry: -0.5,         rz: 0.18,  s: sc() }),
   intro:   () => ({ x: sx(),       y: my(),         z: 0,   rx: 0.05, ry: TAU - 0.3,    rz: -0.14, s: sc() }),
-  flavors: () => ({ x: sx() * 0.9, y: my(),         z: 0.6, rx: 0,    ry: TAU * 2 - 0.2, rz: 0.06, s: sc() * 1.05 }),
-  specs:   () => ({ x: -sx(),      y: my(),         z: 0,   rx: 0.5,  ry: TAU * 2 + 0.6, rz: -0.25, s: sc() }),
-  cta:     () => ({ x: 0,          y: isMobile() ? -0.5 : -0.35, z: 0.8, rx: 0.08, ry: TAU * 3, rz: 0, s: sc() * 1.1 }),
+  flavors: () => ({ x: sx() * 1.05, y: my(),        z: 0,   rx: 0,    ry: TAU * 2 - 0.2, rz: 0.06, s: sc() }),
+  specs:   () => ({ x: -sx(),      y: isMobile() ? -2.2 : 0, z: 0, rx: 0.5, ry: TAU * 2 + 0.6, rz: -0.25, s: isMobile() ? 0.48 : 1 }),
+  cta:     () => ({ x: 0,          y: isMobile() ? 0.2 : -0.75, z: 0,  rx: 0.08, ry: TAU * 3, rz: 0, s: isMobile() ? 0.55 : 0.88 }),
 };
 
 function applyPose(p) {
@@ -236,7 +236,7 @@ function segment(trigger, from, to, opts = {}) {
   const state = { t: 0 };
   ScrollTrigger.create({
     trigger,
-    start: opts.start || 'top bottom',
+    start: opts.start || 'top 70%',
     end: opts.end || 'top top',
     scrub: 1,
     invalidateOnRefresh: true,
@@ -290,6 +290,7 @@ function setFlavor(i) {
   setColors(f);
 
   // Texto
+  gsap.killTweensOf([$name, $sub]);
   gsap.to([$name, $sub], {
     yPercent: -30 * dir, opacity: 0, duration: 0.25, ease: 'power2.in',
     onComplete: () => {
@@ -315,11 +316,12 @@ const live = { x: 0, y: 0, z: 0, rx: 0, ry: 0, rz: 0, s: 1 };
 let introDone = false;
 
 function tick() {
-  const t = clock.getElapsedTime();
+  const dt = Math.min(clock.getDelta(), 0.1);
+  const t = clock.elapsedTime;
 
   // Suaviza o caminho até a pose alvo
   if (introDone) {
-    const k = 0.09;
+    const k = 1 - Math.exp(-dt * 5.5); // suavização independente do FPS
     for (const key in live) live[key] += (currentTarget[key] - live[key]) * k;
     applyPose(live);
   }

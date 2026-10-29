@@ -11,6 +11,7 @@
   --display: "Anton", "Impact", sans-serif;
   --body: "Inter", system-ui, sans-serif;
   --gutter: clamp(16px, 4vw, 56px);
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -139,7 +140,7 @@ section { position: relative; min-height: 100vh; min-height: 100svh; padding: 0 
 .flavors__count { font-family: var(--display); font-size: 22px; color: var(--muted); }
 .flavors__name {
   font-family: var(--display); font-weight: 400; text-transform: uppercase;
-  font-size: clamp(64px, 10vw, 170px); line-height: .9; margin: 8px 0 12px;
+  font-size: clamp(64px, 8vw, 140px); line-height: .9; margin: 8px 0 12px;
 }
 .flavors__sub { font-size: 18px; color: var(--muted); }
 .flavors__list { list-style: none; margin-top: 40px; display: flex; gap: 22px; flex-wrap: wrap; }
@@ -157,8 +158,8 @@ section { position: relative; min-height: 100vh; min-height: 100svh; padding: 0 
 .stat span { font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
 
 /* CTA */
-.cta { display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding-top: 14vh; padding-bottom: 12vh; text-align: center; }
-.cta__title { position: relative; z-index: 0; font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: clamp(72px, 13vw, 220px); line-height: .85; }
+.cta { display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding-top: 12vh; padding-bottom: 12vh; text-align: center; }
+.cta__title { position: relative; z-index: 0; font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: clamp(64px, 9vw, 170px); line-height: .85; text-wrap: balance; }
 .cta__title em { font-style: normal; color: var(--accent); transition: color .6s; }
 .cta__actions { position: relative; z-index: 2; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
 
@@ -172,6 +173,7 @@ section { position: relative; min-height: 100vh; min-height: 100svh; padding: 0 
   .hero__scroll { display: none; }
   .panel, .flavors__inner { align-items: flex-end; padding-bottom: 9vh; }
   .panel--right { justify-content: flex-start; }
+  .specs { align-items: flex-start; padding-top: 14vh; }
   .panel__text, .flavors__text { max-width: 100%; }
   .big { font-size: 15vw; }
   .lead { font-size: 15px; }
