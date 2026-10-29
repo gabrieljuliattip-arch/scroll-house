@@ -1,6 +1,6 @@
 # Espelhado — estética automotiva (site conceito)
 
-Marca fictícia de estética automotiva. Projeto de portfólio da **Scroll House**.
+Marca fictícia de estética automotiva. Projeto de portfólio da **Scroll House**, publicado na Vercel.
 
 ## A ideia
 O objeto 3D é um *speed shape* — a peça curva que estúdios usam para mostrar pintura.
