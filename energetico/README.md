@@ -1,7 +1,7 @@
 # RAIO Energy — site conceito
 
 Landing page de um energético fictício com lata 3D que gira e muda de sabor conforme o scroll.
-Projeto de portfólio da **Scroll House**.
+Projeto de portfólio da **Scroll House**. Publicado na Vercel.
 
 ## Tecnologias
 - HTML, CSS e JavaScript puro (sem build)
