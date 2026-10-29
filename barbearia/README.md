@@ -1,7 +1,7 @@
 # Navalha Barbearia — site conceito
 
 Landing page de uma barbearia fictícia em Pinheiros (SP). Um poste de barbeiro 3D atravessa a página: as listras sobem sem parar (e aceleram quando você rola), e o poste muda de lado a cada seção até deitar no final, em cima do convite para agendar.
-Projeto de portfólio da **Scroll House**.
+Projeto de portfólio da **Scroll House**. Publicado na Vercel.
 
 ## Tecnologias
 - HTML, CSS e JavaScript puro (sem build)
