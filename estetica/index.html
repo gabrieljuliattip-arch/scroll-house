@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Espelhado — Estética Automotiva</title>
+  <meta name="description" content="Espelhado Estética Automotiva: polimento técnico, vitrificação e higienização em São Paulo. Site conceito por Scroll House." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+        "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js",
+        "gsap/ScrollTrigger": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js",
+        "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.mjs"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="loader" id="loader"><span class="loader__word">ESPELHADO<i>.</i></span><span class="loader__bar"><i id="loaderBar"></i></span></div>
+
+  <div class="bg" aria-hidden="true"></div>
+  <canvas id="webgl" aria-hidden="true"></canvas>
+
+  <header class="nav">
+    <a href="#topo" class="nav__logo">ESPELHADO<i>.</i></a>
+    <nav class="nav__links">
+      <a href="#polimento">Polimento</a>
+      <a href="#vitrificacao">Vitrificação</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a href="#contato" class="btn btn--small">Agendar avaliação</a>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="topo">
+      <div class="hero__text">
+        <p class="kicker reveal">Estética automotiva · São Paulo</p>
+        <h1 class="hero__title"><span>Seu carro</span><span>vira <em>espelho.</em></span></h1>
+        <p class="lead reveal">Polimento técnico, vitrificação e higienização com hora marcada. Um carro por vez, no tempo que ele precisa.</p>
+        <div class="hero__cta reveal">
+          <a href="#contato" class="btn">Agendar avaliação</a>
+          <a href="#servicos" class="btn btn--ghost">Ver serviços</a>
+        </div>
+      </div>
+      <div class="split-tag reveal" aria-hidden="true"><span>Antes</span><i></i><span>Depois</span></div>
+    </section>
+
+    <!-- POLIMENTO (fixo) -->
+    <section class="stage polimento" id="polimento">
+      <div class="stage__inner">
+        <div class="stage__text">
+          <p class="kicker">Polimento técnico</p>
+          <h2 class="big">Tiramos as marcas.<br /><em>Não o verniz.</em></h2>
+          <ol class="process" id="process">
+            <li><b>Lavagem técnica</b><span>pH neutro, dois baldes, sem esponja na lataria</span></li>
+            <li><b>Descontaminação</b><span>removedor de ferro e clay bar</span></li>
+            <li><b>Correção</b><span>corte e refino em etapas, máquina roto-orbital</span></li>
+            <li><b>Inspeção</b><span>luz de inspeção e medição do verniz no final</span></li>
+          </ol>
+          <div class="gauge">
+            <div><small>Verniz medido</small><b class="mono" id="gaugeMicron">118 µm</b></div>
+            <div><small>Área polida</small><b class="mono" id="gaugePct">0%</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VITRIFICAÇÃO (fixo) -->
+    <section class="stage vitri" id="vitrificacao">
+      <div class="stage__inner">
+        <div class="stage__text">
+          <p class="kicker">Vitrificação</p>
+          <h2 class="big">A água bate<br />e <em>vai embora.</em></h2>
+          <p class="lead">Uma camada de proteção cerâmica sobre o verniz. A sujeira gruda menos, a lavagem fica mais rápida e o brilho dura.</p>
+          <dl class="specs">
+            <div><dt>Dureza</dt><dd class="mono">9H</dd></div>
+            <div><dt>Ângulo de contato</dt><dd class="mono">&gt;110°</dd></div>
+            <div><dt>Durabilidade</dt><dd class="mono">até 3 anos</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section class="servicos" id="servicos">
+      <div class="servicos__head">
+        <p class="kicker">Serviços</p>
+        <h2 class="big">Escolhe o<br /><em>nível de brilho.</em></h2>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <h3>Lavagem detalhada</h3>
+          <p>Lataria, rodas, caixas de roda, vidros e acabamento externo hidratado.</p>
+          <ul><li>3 horas</li><li>Cera de carnaúba</li></ul>
+          <b class="price mono">R$ 180</b>
+        </article>
+        <article class="card">
+          <h3>Higienização interna</h3>
+          <p>Bancos, teto, carpete e painel com extratora e vapor. Tira cheiro e mancha.</p>
+          <ul><li>1 dia</li><li>Hidratação de couro</li></ul>
+          <b class="price mono">R$ 380</b>
+        </article>
+        <article class="card card--hot">
+          <span class="badge">Mais pedido</span>
+          <h3>Polimento técnico</h3>
+          <p>Correção de riscos finos, marcas de lavagem e oxidação em duas etapas.</p>
+          <ul><li>2 dias</li><li>Medição de verniz</li></ul>
+          <b class="price mono">R$ 890</b>
+        </article>
+        <article class="card">
+          <h3>Vitrificação 3 anos</h3>
+          <p>Polimento de preparo + coating cerâmico na pintura, rodas e vidros.</p>
+          <ul><li>3 dias</li><li>Laudo com fotos</li></ul>
+          <b class="price mono">R$ 1.790</b>
+        </article>
+      </div>
+      <p class="note">Valores para carros de porte médio. SUV e picape sob avaliação.</p>
+    </section>
+
+    <!-- CONTATO -->
+    <section class="contato" id="contato">
+      <div class="contato__text">
+        <p class="kicker">Agendamento</p>
+        <h2 class="big">Traz o carro<br />pra uma <em>avaliação.</em></h2>
+        <p class="lead">A gente olha a pintura na luz de inspeção, mede o verniz e diz o que dá pra corrigir. Sem compromisso.</p>
+        <p class="addr">Rua Fictícia, 450 · Vila Mariana, São Paulo<br />Terça a sábado, 8h às 18h</p>
+      </div>
+      <form class="form" id="form">
+        <label>Seu nome<input type="text" id="fName" autocomplete="name" required /></label>
+        <label>Carro e ano<input type="text" id="fCar" placeholder="Ex.: Civic 2019 preto" required /></label>
+        <label>Serviço
+          <select id="fService">
+            <option>Polimento técnico</option><option>Vitrificação 3 anos</option><option>Lavagem detalhada</option><option>Higienização interna</option>
+          </select>
+        </label>
+        <button class="btn" type="submit">Pedir avaliação</button>
+        <p class="form__msg" id="formMsg" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Espelhado é uma marca fictícia. Site conceito desenvolvido por <a href="https://github.com/gabrieljuliattip-arch/scroll-house" target="_blank" rel="noopener">Scroll House</a>.</p>
+  </footer>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
